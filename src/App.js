@@ -1,11 +1,17 @@
 import React from 'react';
 import logo from './logo.svg';
+import Person from './Person';
 import './App.css';
+import {summ, multiply} from './Example.js';
+import sayHello from './test';
 
 function App() {
+sayHello();
   return (
     <div className="App">
       <header className="App-header">
+        <Person name="Tigran" surname = "Mnatsakanyan"/>
+        <h1>This is our Project</h1>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
