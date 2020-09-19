@@ -1,29 +1,26 @@
-import React, {Component} from 'react';
+import React, {Component, PureComponent} from 'react';
+import TodoItem from './TodoItem'
 
-class ToDoList extends React.Component{
-    state = {
-        value: '',
-        showValue:'',
-    };
+class TodoList extends PureComponent{
 
-    handelleCange = (event)=>{
-       
-        this.setState ({value: event.target.value})
-    }
-    handelCkick =()=> {
-        this.setState({showValue:this.state.value})
-     
-    } 
-      render (){
-        let {showValue} =this.state
+  render() {
 
-        return (
-            <>
-            <input  type = 'text' onChange ={ this.handelleCange}/>
-            <button onClick = {this.handelCkick}> Add </button>
-            <p> {showValue} </p>
-            </>
+    // console.log('TodoList Render: ', this.props.todoList);
+
+    const todoList =  this.props.todoList.map((todo)=>{
+      return(
+        <TodoItem key={todo.todoId}
+                  handleDelete={() => {this.props.handleDelete(todo.todoId)}}
+                  todo={todo}/>
         )
-    }
+    })
+
+    return(
+      <section className='TodoList_section'>
+        {todoList}
+      </section>
+    )
+  }
 }
-export default ToDoList;
+
+export default TodoList;
