@@ -1,42 +1,34 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 
-export default class AddTodo extends Component{
+function AddTodo(props){
 
-  constructor(props){
-    super(props)
+  const [text, setText] = useState('');
 
-    this.state = {
-      text : '',
+  const handleChange = (ev) => {
+    // this.setState({
+    //   [ev.target.name] : ev.target.value,
+    // })
+    setText(ev.target.value)
+  }
 
+  const handleSubmit = (ev) => {
+    ev.preventDefault()
+    if(text.trim()){
+      props.handleSubmit(text);
+      setText('');
     }
   }
 
-  handleChange = (ev) => {
-    this.setState({
-      [ev.target.name] : ev.target.value,
-    })
-
-  }
-
-  handleSubmit = (ev) => {
-    ev.preventDefault()
-    this.props.handleSubmit(this.state.text);
-    this.setState({text : ''})
-  }
-
-  render() {
-
-    // console.log('AddTodo Render')
-
-    return(
-      <form className='AddTodo_form' onSubmit={this.handleSubmit}>
+  return(
+      <form className='AddTodo_form' onSubmit={handleSubmit}>
         <input name='text'
                placeholder='Enter Todo'
-               onChange={this.handleChange}
-               value={this.state.text}
+               onChange={handleChange}
+               value={text}
         />
-        <button onClick={this.handleSubmit}>Add</button>
+        <button onClick={handleSubmit}>Add</button>
       </form>
     )
   }
-}
+
+  export default (AddTodo);
