@@ -24,6 +24,13 @@ export default class AddTodo extends Component{
     this.setState({text : ''})
   }
 
+  shouldComponentUpdate(nextProps, nextState, newxtContext){
+    if(this.props.toggle !== nextProps.toggle){
+      return false
+    }
+    return true
+  }
+
   render() {
 
     // console.log('AddTodo Render')
@@ -34,8 +41,13 @@ export default class AddTodo extends Component{
                placeholder='Enter Todo'
                onChange={this.handleChange}
                value={this.state.text}
+               disabled={this.props.disableForm}
         />
-        <button onClick={this.handleSubmit}>Add</button>
+        <button 
+        onClick={this.handleSubmit}
+        disabled={this.props.disableForm}>
+        Add
+        </button>
       </form>
     )
   }

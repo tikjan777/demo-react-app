@@ -12,10 +12,15 @@ class App extends Component{
     this.state = {
       todoList : [],
       toggle : false,
+      disableForm: true,
     }
   }
 
   componentDidMount() {
+    setTimeout(()=>{
+      this.setState({toggle:true})
+    },5000)
+
     axios.get('https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5')
     .then(resp => {
       const elements = resp.data;
@@ -29,8 +34,17 @@ class App extends Component{
         this.todoId++
       })
 
-      this.setState({todoList: fetchedTodoList})
+      setTimeout(()=>{
+        this.setState({todoList: fetchedTodoList});
+      },5000)
+      
     });
+  }
+
+  componentDidUpdate(prevProps, prevState, snapchot){
+    if(prevState.disableForm && this.state.disableForm){
+      this.setState({disableForm:false})
+    }
   }
 
   todoId = 1;
@@ -64,14 +78,14 @@ class App extends Component{
       <main className='App_wrapper'>
         <header className='App_header'>
           <h1>Todo List</h1>
-          <button onClick={()=>{
+          {/* <button onClick={()=>{
             this.setState({
               toggle: !this.state.toggle
             })
-          }}>Tog</button>
+          }}>Tog</button> */}
         </header>
 
-        <AddTodo  handleSubmit={this.handleSubmit}/>
+        <AddTodo toggle={this.state.toggle} disableForm={this.state.disableForm} handleSubmit={this.handleSubmit}/>
 
         <TodoList handleDelete={this.handleDelete} todoList={ this.state.todoList}/>
 
