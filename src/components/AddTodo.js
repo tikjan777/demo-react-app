@@ -5,14 +5,12 @@ function AddTodo(props){
   const [text, setText] = useState('');
 
   const handleChange = (ev) => {
-    // this.setState({
-    //   [ev.target.name] : ev.target.value,
-    // })
-    setText(ev.target.value)
+    setText(ev.target.value);
+
   }
 
   const handleSubmit = (ev) => {
-    ev.preventDefault()
+    ev.preventDefault();
     if(text.trim()){
       props.handleSubmit(text);
       setText('');
@@ -20,15 +18,15 @@ function AddTodo(props){
   }
 
   return(
-      <form className='AddTodo_form' onSubmit={handleSubmit}>
-        <input name='text'
-               placeholder='Enter Todo'
-               onChange={handleChange}
-               value={text}
-        />
-        <button onClick={handleSubmit}>Add</button>
-      </form>
-    )
-  }
+    <form className='AddTodo_form' onSubmit={handleSubmit}>
+      <input name='text'
+             placeholder='Enter Todo'
+             onChange={handleChange}
+             value={text}
+      />
+      <button onClick={handleSubmit}>Add</button>
+    </form>
+  )
+}
 
-  export default (AddTodo);
+export default AddTodo;
